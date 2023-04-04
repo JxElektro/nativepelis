@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TouchableOpacity} from 'react-native';
 import { theme } from './src/config/theme';
-import test from './src/components/test';
 import { useState } from 'react';
+import MovieList from './src/pages/MovieList';
 
 
 export default function App() {
@@ -17,7 +17,8 @@ export default function App() {
   return (
     <View style={currentStyles.container}>
       <StatusBar style="auto" />
-      <Text>Open up App.tsx to start working on your app! {themeMode}</Text>
+      <MovieList />
+    
       <TouchableOpacity onPress={toggleTheme}>
         <Text>Toggle Theme</Text>
       </TouchableOpacity>
@@ -32,7 +33,7 @@ const styles = (themeMode: string) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: themeMode === 'dark' ? theme.colors.dark.background : theme.colors.light.background,
-    
+
   },
 });
 // Path: src\config\theme.ts
