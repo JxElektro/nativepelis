@@ -1,53 +1,57 @@
-import React, { useContext } from 'react'
-import { View  , Text , StyleSheet} from 'react-native'
-import PropTypes from 'prop-types'
-import PremieredMovies from '../components/PemieredMovies'
-import PopularMovies from '../components/PopularMovies'
-import ToggleButton from '../components/ToggleButton'
-import { Context } from '../config/Context'
-import { theme } from '../config/theme'
+// Inicia MovieList.tsx
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import PropTypes from "prop-types";
+import PremieredMovies from "../components/PemieredMovies";
+import PopularMovies from "../components/PopularMovies";
+import ToggleButton from "../components/ToggleButton";
+import { Context } from "../config/Context";
+import { theme } from "../config/theme";
 
 const MovieList = (props: any) => {
   const { themeMode } = useContext(Context);
 
-
   return (
-    <View style={ themeMode === "dark" ? styles.darkContainer : styles.lightContainer}>
-      <Text style={ themeMode === "dark" ? styles.darkContainer : styles.lightContainer} >MovieList</Text>
+    <SafeAreaView style={styles.container}>
       <PremieredMovies />
       <PopularMovies />
-      <ToggleButton />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  darkContainer : {
-    backgroundColor : theme.colors.dark.background,
-    alignItems : "center",
-    color : theme.colors.dark.primary,
-    fontSize : 50,
-    fontWeight : "bold",
-    //paddingTop : 30,
-    paddingBottom : 50,
-    flex : 3,
+  container: {
+    flexDirection: "column",
+    flex: 1,
   },
-  lightContainer : {
-    backgroundColor : theme.colors.light.background,
-    alignItems : "center",
-    color : theme.colors.light.primary,
-    fontSize : 50,
-    fontWeight : "bold",
-    //paddingTop : 30,
-    paddingBottom : 50,
-    flex : 3,
-  },}
-)
-    
-
+  darkContainer: {
+    backgroundColor: theme.colors.dark.background,
+    alignItems: "center",
+    flex: 1,
+  },
+  lightContainer: {
+    backgroundColor: theme.colors.light.background,
+    alignItems: "center",
+    flex: 1,
+  },
+  darkTitle: {
+    color: theme.colors.dark.primary,
+    fontSize: 50,
+    fontWeight: "bold",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  lightTitle: {
+    color: theme.colors.light.primary,
+    fontSize: 50,
+    fontWeight: "bold",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+});
 
 MovieList.propTypes = {};
 
 export default MovieList;
 
-// Path: src\pages\MovieList.tsx
+// Termina MovieList . Path: src\pages\MovieList.tsx

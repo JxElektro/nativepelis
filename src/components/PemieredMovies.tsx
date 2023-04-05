@@ -6,7 +6,17 @@ const API_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`
 
 const windowWidth = Dimensions.get("window").width;
 
-const renderItem = ({ item }) => {
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string;
+}
+
+interface MovieItemProps {
+  item: Movie;
+}
+
+const MovieItem: React.FC<MovieItemProps> = React.memo(({ item }) => {
   const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
 
   return (
@@ -25,10 +35,14 @@ const renderItem = ({ item }) => {
       </Text>
     </View>
   );
+});
+
+const renderItem = ({ item }: { item: Movie }) => {
+  return <MovieItem item={item} />;
 };
 
 const PremieredMovies = (props: any) => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     fetch(API_URL)

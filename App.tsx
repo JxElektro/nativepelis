@@ -1,4 +1,4 @@
-// App.tsx
+// Inicia App.tsx 
 import React from "react";
 import { AppNavigator } from "./src/config/app.navigator";
 import { ContextProvider } from "./src/config/Context";
@@ -13,5 +13,4 @@ export default function App() {
     </ContextProvider>
   );
 }
-
-// Path: src\config\theme.ts
+// Termina App. tsx .Path: App.tsx
