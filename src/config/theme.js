@@ -1,13 +1,6 @@
 //theme.js
 
 export const theme = {
-  fonts: {
-    regular: 'Roboto-Regular',
-    medium: 'Roboto-Medium',
-    bold: 'Roboto-Bold',
-    light: 'Roboto-Light',
-    thin: 'Roboto-Thin',
-  },
   colors: {
     light:
     {

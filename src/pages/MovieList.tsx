@@ -10,7 +10,6 @@ import { theme } from '../config/theme'
 const MovieList = (props: any) => {
   const { themeMode } = useContext(Context);
 
-  
 
   return (
     <View style={ themeMode === "dark" ? styles.darkContainer : styles.lightContainer}>
@@ -27,23 +26,21 @@ const styles = StyleSheet.create({
     backgroundColor : theme.colors.dark.background,
     alignItems : "center",
     color : theme.colors.dark.primary,
-    fontFamily : "Roboto",
     fontSize : 50,
     fontWeight : "bold",
-    paddingTop : 50,
+    //paddingTop : 30,
     paddingBottom : 50,
-    flex : 1,
+    flex : 3,
   },
   lightContainer : {
     backgroundColor : theme.colors.light.background,
     alignItems : "center",
     color : theme.colors.light.primary,
-    fontFamily : "Roboto",
     fontSize : 50,
     fontWeight : "bold",
-    paddingTop : 50,
+    //paddingTop : 30,
     paddingBottom : 50,
-    flex : 1,
+    flex : 3,
   },}
 )
     
