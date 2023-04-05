@@ -1,15 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { View , Text} from 'react-native/types'
+import { View , Text} from 'react-native'
 
-const MovieDetail = (props: any) => {
+
+interface MovieDetailsProps {
+movieId: number;
+}
+
+const MovieDetails = (props: MovieDetailsProps) => {
+
+  const { movieId } = props;
+
   return (
     <View>
-      <Text>MovieDetail</Text>
+      <Text>MovieDetail {movieId}</Text>
     </View>
   )
 }
 
-MovieDetail.propTypes = {}
 
-export default MovieDetail
+export default MovieDetails

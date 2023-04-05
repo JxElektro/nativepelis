@@ -1,15 +1,19 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View , Text} from 'react-native/types'
+// BannerDetail.tsx
+import React from 'react';
+import { View, Text } from 'react-native';
 
-const BannerDetail = (props: any) => {
-  return (
-    <View>
-      <Text>BannerDetail</Text>
-    </View>
-  )
+interface BannerDetailProps {
+  movieId: number;
 }
 
-BannerDetail.propTypes = {}
+const BannerDetail = (props: BannerDetailProps) => {
+  const { movieId } = props;
 
-export default BannerDetail
+  return (
+    <View>
+      <Text>BannerDetail for Movie ID: {movieId}</Text>
+    </View>
+  );
+};
+
+export default BannerDetail;

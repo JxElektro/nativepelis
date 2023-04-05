@@ -7,7 +7,7 @@ import { View } from 'react-native';
 import { theme } from './theme.js';
 
 import MovieList from '../pages/MovieList.tsx';
-import MovieDetail from '../pages/MovieDetails.tsx';
+import MovieDetails from '../pages/MovieDetails.tsx';
 
 const Stack = createStackNavigator();
 
@@ -20,7 +20,7 @@ export const AppNavigator = () => {
       </View>
       <Stack.Navigator screenOptions={{ headerShown: false, }}>
         <Stack.Screen name="MovieList" component={MovieList} />
-        <Stack.Screen name="MovieDetail" component={MovieDetail} />
+        <Stack.Screen name="MovieDetails" component={MovieDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,14 +1,18 @@
 import React from 'react'
 import { View , Text } from 'react-native'
-import PropTypes from 'prop-types'
-import PemieredMovies from '../components/PemieredMovies'
-import PopularMovies from '../components/PopularMovies'
+import BannerDetail from '../components/BannerDetail'
+import MovieDetail from '../components/MovieDetail'
+import CastDetail from '../components/CastDetail'
 
+const MovieDetails = ({ route }: any) => {
+  const { movieId } = route.params;
 
-const MovieDetails = (props: any) => {
   return (
-    <View >
-      <Text >MovieDetails</Text>
+    <View>
+      <Text>MovieDetails</Text>
+      <BannerDetail movieId={movieId} />
+      <MovieDetail movieId={movieId} />
+      <CastDetail movieId={movieId} />
     </View>
   )
 }

@@ -1,15 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View , Text} from 'react-native/types'
+import React from 'react';
+import { View, Text } from 'react-native';
 
-const CastDetail = (props: any) => {
-  return (
-   <View>
-      <Text>CastDetail</Text>
-   </View>
-  )
+interface CastDetailProps {
+  movieId: number;
 }
 
-CastDetail.propTypes = {}
+const CastDetail = (props: CastDetailProps) => {
+  const { movieId } = props;
 
-export default CastDetail
+  return (
+    <View>
+      <Text>CastDetail for Movie ID: {movieId}</Text>
+    </View>
+  );
+};
+
+export default CastDetail;

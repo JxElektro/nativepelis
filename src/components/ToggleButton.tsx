@@ -1,4 +1,3 @@
-// Theme Toggle Button
 
 import React, { useContext } from "react";
 import { View, Text, TouchableOpacity , StyleSheet} from "react-native";

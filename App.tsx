@@ -1,8 +1,7 @@
-// Inicia App.tsx 
 import React from "react";
 import { AppNavigator } from "./src/config/app.navigator";
 import { ContextProvider } from "./src/config/Context";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView , Text} from "react-native";
 
 export default function App() {
   return (
@@ -13,4 +12,4 @@ export default function App() {
     </ContextProvider>
   );
 }
-// Termina App. tsx .Path: App.tsx
+//Path: App.tsx

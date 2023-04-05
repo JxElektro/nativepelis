@@ -8,7 +8,7 @@ import ToggleButton from "../components/ToggleButton";
 import { Context } from "../config/Context";
 import { theme } from "../config/theme";
 
-const MovieList = (props: any) => {
+const MovieList = () => {
   const { themeMode } = useContext(Context);
 
   return (

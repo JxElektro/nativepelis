@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  ScrollView,
-  Text,
-  FlatList,
-  Image,
-  Dimensions,
-  StyleSheet,
-  View,
-} from "react-native";
+import { TouchableOpacity, Text, FlatList, Image, Dimensions, StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const API_KEY = "c2d1eba2da68e492d514141b781c25cf";
 const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
@@ -21,26 +15,28 @@ interface Movie {
   poster_path: string;
 }
 
-const renderItem = ({ item }: { item: Movie }) => {
-  const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-
-  return (
-    <View style={styles.movieContainer}>
-      <Image
-        source={{ uri: imageURL }}
-        resizeMode="cover"
-        style={styles.movieImage}
-      />
-      <Text style={styles.movieTitle}>{item.title}</Text>
-    </View>
-  );
-};
-
 interface PopularMoviesProps {}
 
 const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
+  const navigation = useNavigation<StackNavigationProp<any>>();
+
+  const renderItem = ({ item }: { item: Movie }) => {
+    const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("MovieDetails", { movieId: item.id });
+        }}
+      >
+        <View style={styles.movieContainer}>
+          <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.movieImage} />
+          <Text style={styles.movieTitle}>{item.title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const fetchMovies = (pageNumber: number) => {
     fetch(`${API_URL}&page=${pageNumber}`)
