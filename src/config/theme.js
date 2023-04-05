@@ -1,3 +1,5 @@
+//theme.js
+
 export const theme = {
   fonts: {
     regular: 'Roboto-Regular',
@@ -12,18 +14,18 @@ export const theme = {
       primary: '#00293c',
       secondary: '#1E656D',
       background: '#F1F3CE',
-      text: '#FFF',
+      text: '#000',
       textSecondary: '#000',
       action: '#F62a00',
     }
     ,
-    dark: { // bust be opose to light
-      primary: '#00293c',
-      secondary: '#1E656D',
-      background: '#00293c',
+    dark: {
+      primary: '#ffd3c3',
+      secondary: '#e19a92',
+      background: '#0e0c31',
       text: '#FFF',
-      textSecondary: '#000',
-      action: '#F62a00',
+      textSecondary: '#FFF',
+      action: '#09d5ff',
     }
   }
 };
