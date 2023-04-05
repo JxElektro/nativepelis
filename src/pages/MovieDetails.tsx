@@ -9,7 +9,6 @@ const MovieDetails = ({ route }: any) => {
 
   return (
     <View>
-      <Text>MovieDetails</Text>
       <BannerDetail movieId={movieId} />
       <MovieDetail movieId={movieId} />
       <CastDetail movieId={movieId} />
