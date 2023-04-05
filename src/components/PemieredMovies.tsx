@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, Image, Dimensions, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { API_TOKEN } from "@env";
 
-const API_KEY = "c2d1eba2da68e492d514141b781c25cf";
-const API_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`;
+
+/* Import the Api Token */
+const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_TOKEN}`;
 
 const windowWidth = Dimensions.get("window").width;
 

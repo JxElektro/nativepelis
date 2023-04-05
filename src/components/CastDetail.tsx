@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import { API_TOKEN } from '@env';
 
 interface CastDetailProps {
   movieId: number;
@@ -16,8 +17,8 @@ const CastDetail = (props: CastDetailProps) => {
   const { movieId } = props;
   const [cast, setCast] = useState<CastMember[]>([]);
 
-  const API_KEY = 'c2d1eba2da68e492d514141b781c25cf';
-  const API_URL = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`;
+ 
+  const API_URL = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_TOKEN}&language=en-US`;
 
   useEffect(() => {
     fetch(API_URL)

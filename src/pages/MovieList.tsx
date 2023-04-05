@@ -1,15 +1,15 @@
-// Inicia MovieList.tsx
+
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
-import PropTypes from "prop-types";
+import { StyleSheet, SafeAreaView} from "react-native";
 import PremieredMovies from "../components/PemieredMovies";
 import PopularMovies from "../components/PopularMovies";
-import ToggleButton from "../components/ToggleButton";
-import { Context } from "../config/Context";
-import { theme } from "../config/theme";
+//import { Context } from "../config/Context";
+
+//import { theme } from "../config/theme";
 
 const MovieList = () => {
-  const { themeMode } = useContext(Context);
+  //const { themeMode } = useContext(Context);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,24 +25,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   darkContainer: {
-    backgroundColor: theme.colors.dark.background,
+   // backgroundColor: theme.colors.dark.background,
     alignItems: "center",
     flex: 1,
   },
   lightContainer: {
-    backgroundColor: theme.colors.light.background,
+    //backgroundColor: theme.colors.light.background,
     alignItems: "center",
     flex: 1,
   },
   darkTitle: {
-    color: theme.colors.dark.primary,
+    //color: theme.colors.dark.primary,
     fontSize: 50,
     fontWeight: "bold",
     paddingTop: 10,
     paddingBottom: 10,
   },
   lightTitle: {
-    color: theme.colors.light.primary,
+    //color: theme.colors.light.primary,
     fontSize: 50,
     fontWeight: "bold",
     paddingTop: 10,
@@ -54,4 +54,3 @@ MovieList.propTypes = {};
 
 export default MovieList;
 
-// Termina MovieList . Path: src\pages\MovieList.tsx

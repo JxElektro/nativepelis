@@ -1,5 +1,4 @@
-import React from 'react'
-import { View , Text } from 'react-native'
+import { View } from 'react-native'
 import BannerDetail from '../components/BannerDetail'
 import MovieDetail from '../components/MovieDetail'
 import CastDetail from '../components/CastDetail'

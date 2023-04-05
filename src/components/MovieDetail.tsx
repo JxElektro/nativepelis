@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { API_TOKEN } from '@env';
 
 interface MovieDetailsProps {
   movieId: number;
@@ -23,8 +24,8 @@ const MovieDetails = (props: MovieDetailsProps) => {
   const { movieId } = props;
   const [movieDetails, setMovieDetails] = useState<MovieDetailsData | null>(null);
 
-  const API_KEY = 'c2d1eba2da68e492d514141b781c25cf';
-  const API_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
+
+  const API_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_TOKEN}`;
 
   useEffect(() => {
     fetch(API_URL)

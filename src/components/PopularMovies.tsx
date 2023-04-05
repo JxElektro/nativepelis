@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { TouchableOpacity, Text, FlatList, Image, Dimensions, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { API_TOKEN } from "@env";
 
-const API_KEY = "c2d1eba2da68e492d514141b781c25cf";
-const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
 
+/* Import the Api Token */
+const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_TOKEN}`;
+
+
+/* Gets and sets the width of the screen */
 const windowWidth = Dimensions.get("window").width;
 const numColumns = 3;
 
+
+/* Creates an interface for the movie object */
 interface Movie {
   id: number;
   title: string;
@@ -21,6 +27,9 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
   const navigation = useNavigation<StackNavigationProp<any>>();
+
+
+  {/* Creates a function that renders the movie object */}
 
   const renderItem = ({ item }: { item: Movie }) => {
     const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
@@ -38,6 +47,8 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
     );
   };
 
+
+  {/* Creates a function that fetches the movies from the API */}
   const fetchMovies = (pageNumber: number) => {
     fetch(`${API_URL}&page=${pageNumber}`)
       .then((response) => response.json())
@@ -49,6 +60,7 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
       });
   };
 
+  /* Calls the fetchMovies function when the page number changes */
   useEffect(() => {
     fetchMovies(page);
   }, [page]);
