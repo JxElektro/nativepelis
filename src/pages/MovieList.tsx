@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { StyleSheet, SafeAreaView} from "react-native";
 import PremieredMovies from "../components/PemieredMovies";
 import PopularMovies from "../components/PopularMovies";
+import SearchBar from "../components/SearchBar";
 //import { Context } from "../config/Context";
 
 //import { theme } from "../config/theme";

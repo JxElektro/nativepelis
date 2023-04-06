@@ -66,7 +66,7 @@ const PremieredMovies = (props: any) => {
 
   return (
     <View>
-      <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 16 }}>Premiered Movies</Text>
+      <Text style={{ fontSize: 24, fontWeight: "bold", margin: 16 , textAlign: "center"}}>Premiered Movies</Text>
       <FlatList
         data={movies}
         renderItem={renderItem}
