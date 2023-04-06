@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image } from 'react-native';
 import { API_TOKEN } from '@env';
+import tw from 'tailwind-react-native-classnames';
 
 interface CastDetailProps {
   movieId: number;
@@ -17,7 +18,6 @@ const CastDetail = (props: CastDetailProps) => {
   const { movieId } = props;
   const [cast, setCast] = useState<CastMember[]>([]);
 
- 
   const API_URL = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_TOKEN}&language=en-US`;
 
   useEffect(() => {
@@ -37,9 +37,9 @@ const CastDetail = (props: CastDetailProps) => {
       : 'https://via.placeholder.com/150';
 
     return (
-      <View style={styles.castMemberContainer}>
-        <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.castImage} />
-        <Text style={styles.castName}>{item.name}</Text>
+      <View style={tw`items-center mr-4 ml-4`}>
+        <Image source={{ uri: imageURL }} resizeMode="cover" style={tw`w-24 h-36 rounded-lg `} />
+        <Text style={tw`text-base text-center mt-1`}>{item.name}</Text>
       </View>
     );
   };
@@ -53,22 +53,5 @@ const CastDetail = (props: CastDetailProps) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  castMemberContainer: {
-    alignItems: 'center',
-    marginRight: 10,
-  },
-  castImage: {
-    width: 100,
-    height: 150,
-    borderRadius: 8,
-  },
-  castName: {
-    fontSize: 14,
-    textAlign: 'center',
-    marginTop: 4,
-  },
-});
 
 export default CastDetail;

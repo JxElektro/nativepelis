@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { API_TOKEN } from "@env";
-
+import tw from 'tailwind-react-native-classnames';
 
 interface BannerDetailProps {
   movieId: number;
@@ -31,8 +31,8 @@ const BannerDetail = (props: BannerDetailProps) => {
 
   if (!movieDetails) {
     return (
-      <View>
-        <Text>Loading...</Text>
+      <View style={tw`flex items-center justify-center h-48`}>
+        <Text style={tw`text-lg font-bold`}>Loading...</Text>
       </View>
     );
   }
@@ -40,24 +40,11 @@ const BannerDetail = (props: BannerDetailProps) => {
   const imageURL = `https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`;
 
   return (
-    <View>
-      <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.bannerImage} />
-      <Text style={styles.movieTitle}>{movieDetails.title}</Text>
+    <View style={tw`relative`}>
+      <Image source={{ uri: imageURL }} resizeMode="cover" style={tw`w-full h-60`} />
+      <Text style={tw`text-2xl font-bold text-center absolute bottom-0 w-full bg-black bg-opacity-50 text-white py-2`}>{movieDetails.title}</Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  bannerImage: {
-    width: '100%',
-    height: 200,
-  },
-  movieTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 8,
-  },
-});
 
 export default BannerDetail;
