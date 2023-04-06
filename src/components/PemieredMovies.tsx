@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Image, Dimensions, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, Image, Dimensions, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { API_TOKEN } from "@env";
@@ -15,7 +15,6 @@ interface Movie {
   title: string;
   poster_path: string;
 }
-
 interface MovieItemProps {
   item: Movie;
 }
@@ -25,22 +24,14 @@ const MovieItem: React.FC<MovieItemProps> = React.memo(({ item }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   return (
-    <TouchableOpacity
+    <TouchableOpacity style={styles.button}
       onPress={() => {
         navigation.navigate("MovieDetails", { movieId: item.id });
-      }}
-    >
+      }} >
+      {/*} This divide the windows {*/}
       <View style={{ width: windowWidth * 0.7, marginRight: 16 }}>
-        <Image
-          source={{ uri: imageURL }}
-          resizeMode="cover"
-          style={{
-            width: "100%",
-            height: 200,
-            borderRadius: 8,
-          }}
-        />
-        <Text style={{ marginTop: 8, fontSize: 18, fontWeight: "bold" }}>{item.title}</Text>
+        <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.imagePremiere} />
+        <Text style={styles.movieTitle}>{item.title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -66,7 +57,7 @@ const PremieredMovies = (props: any) => {
 
   return (
     <View>
-      <Text style={{ fontSize: 24, fontWeight: "bold", margin: 16 , textAlign: "center"}}>Premiered Movies</Text>
+      <Text style={styles.header_text}>Premiered Movies</Text>
       <FlatList
         data={movies}
         renderItem={renderItem}
@@ -77,5 +68,31 @@ const PremieredMovies = (props: any) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "#AFCEE3",
+  },
+  header_text: {
+    fontSize: 24,
+    padding: 10,
+    textAlign: "center",
+    color: "#0E2859",
+    //fontFamily: "poppins-bold",
+    backgroundColor: "#AFCEE3",
+  },
+  movieTitle: {
+    marginTop: 4,
+    fontSize: 18,
+    //fontFamily: "poppins-bold",
+    textAlign: "center",
+    color: "#0E2859",
+  },
+  imagePremiere: {
+    width: "100%",
+    height: 200,
+    borderRadius: 8,
+  },
+});
 
 export default PremieredMovies;

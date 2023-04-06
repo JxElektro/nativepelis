@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image , StyleSheet} from 'react-native';
 import { API_TOKEN } from '@env';
-import tw from 'tailwind-react-native-classnames';
+
 
 interface CastDetailProps {
   movieId: number;
@@ -34,12 +34,13 @@ const CastDetail = (props: CastDetailProps) => {
   const renderItem = ({ item }: { item: CastMember }) => {
     const imageURL = item.profile_path
       ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-      : 'https://via.placeholder.com/150';
+      : 'https://via.placeholder.com/100x150';
 
     return (
-      <View style={tw`items-center mr-4 ml-4`}>
-        <Image source={{ uri: imageURL }} resizeMode="cover" style={tw`w-24 h-36 rounded-lg `} />
-        <Text style={tw`text-base text-center mt-1`}>{item.name}</Text>
+      <View style={styles.container} >
+        <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.image} />
+        <Text style={styles.character}>{item.character}</Text>
+        <Text style={styles.name}>{item.name}</Text>
       </View>
     );
   };
@@ -53,5 +54,30 @@ const CastDetail = (props: CastDetailProps) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 4,
+    alignItems: 'center',
+  },
+  image: {
+    width: 100,
+    height: 150,
+    borderRadius: 4,
+  },
+  name: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginTop: 1,
+    fontWeight: 'bold',
+  },
+  character: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginTop: 1,
+    fontStyle: 'italic',
+  },
+});
+
 
 export default CastDetail;

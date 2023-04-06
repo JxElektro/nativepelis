@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { API_TOKEN } from "@env";
-import tw from 'tailwind-react-native-classnames';
+
 
 interface BannerDetailProps {
   movieId: number;
@@ -25,14 +25,14 @@ const BannerDetail = (props: BannerDetailProps) => {
         setMovieDetails({ title: data.title, backdrop_path: data.backdrop_path });
       })
       .catch((error) => {
-        console.error('Error fetching movie details:', error);
+        console.error("Error fetching movie details:", error);
       });
   }, [movieId]);
 
   if (!movieDetails) {
     return (
-      <View style={tw`flex items-center justify-center h-48`}>
-        <Text style={tw`text-lg font-bold`}>Loading...</Text>
+      <View style={styles.container}>
+        <Text style={styles.header_text}>Loading...</Text>
       </View>
     );
   }
@@ -40,11 +40,32 @@ const BannerDetail = (props: BannerDetailProps) => {
   const imageURL = `https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`;
 
   return (
-    <View style={tw`relative`}>
-      <Image source={{ uri: imageURL }} resizeMode="cover" style={tw`w-full h-60`} />
-      <Text style={tw`text-2xl font-bold text-center absolute bottom-0 w-full bg-black bg-opacity-50 text-white py-2`}>{movieDetails.title}</Text>
+    <View style={styles.container}>
+      <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.banner} />
+      <Text style={styles.header_text}>{movieDetails.title}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  header_text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    padding: 10,
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    color: "white",
+  },
+  container: {
+    position: "relative",
+  },
+  banner: {
+    width: "100%",
+    height: 200,
+  },
+});
 
 export default BannerDetail;

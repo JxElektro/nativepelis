@@ -98,21 +98,24 @@ const SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_TOKE
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#AFCEE3",
   },
   searchBar: {
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#215EBB",
     padding: 8,
   },
   searchInput: {
-    backgroundColor: "white",
+    backgroundColor: "#AFCEE3",
     borderRadius: 8,
     padding: 8,
   },
   header: {
     fontSize: 24,
-    fontWeight: "bold",
+    //fontFamily : "poppins-bold",
     margin: 14,
     textAlign: "center", 
+    color: "#0E2859",
+    fontWeight: "bold",
   },
   movieContainer: {
     width: windowWidth / numColumns,
@@ -126,9 +129,11 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily : "poppins-regular",
     marginTop: 8,
     textAlign: "center",
+    color: "#0E2859",
+    marginHorizontal: 20
   },
 });
 

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image } from 'react-native';
-import { API_TOKEN } from '@env';
-import tw from 'tailwind-react-native-classnames';
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
+import { API_TOKEN } from "@env";
 
 interface MovieDetailsProps {
   movieId: number;
@@ -39,33 +38,79 @@ const MovieDetails = (props: MovieDetailsProps) => {
         });
       })
       .catch((error) => {
-        console.error('Error fetching movie details:', error);
+        console.error("Error fetching movie details:", error);
       });
   }, [movieId]);
 
   if (!movieDetails) {
     return (
-      <View style={tw`flex items-center justify-center h-48`}>
-        <Text style={tw`text-lg font-bold`}>Loading...</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>Loading...</Text>
       </View>
     );
   }
 
   const imageURL = `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`;
-  const genres = movieDetails.genres.slice(0, 2).map((genre) => genre.name).join(', ');
+  const genres = movieDetails.genres
+    .slice(0, 2)
+    .map((genre) => genre.name)
+    .join(", ");
 
   return (
-    <View style={tw`flex-col items-center mt-5`}>
-      <View style={tw`flex-row mb-4`}>
-        <View style={tw`flex-col w-24 items-center mr-4 ml-1`}>
-          <Image source={{ uri: imageURL }} resizeMode="cover" style={tw`w-24 h-36 rounded-lg mt-2`} />
-          <Text style={tw`text-base italic mt-2`}>{genres}</Text>
+    <View style={styles.container}>
+      <View style={styles.subContainer}>
+        <View style={styles.leftContainer}>
+          <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.image} />
+          <Text style={styles.text}>{genres}</Text>
         </View>
-        <Text style={tw`text-base flex-1 mr-4 mt-2`}>{movieDetails.overview}</Text>
+
+        <Text style={styles.details}>{movieDetails.overview}</Text>
       </View>
-      <Text style={tw`text-base font-bold text-center mb-2`}>Release Date: {movieDetails.release_date}</Text>
+      <Text style={styles.date}>Release Date: {movieDetails.release_date}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: 5,
+  },
+  subContainer: {
+    flexDirection: "row",
+    paddingBottom: 18,
+    paddingTop: 30,
+  },
+  leftContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    paddingRight: 8,
+    paddingLeft: 1,
+    width: "30%",
+  },
+  image: {
+    width: 100,
+    height: 150,
+    borderRadius: 5,
+  },
+  text: {
+    fontSize: 12,
+    fontStyle: "italic",
+    paddingTop: 5,
+  },
+  details: {
+    fontSize: 16,
+    width: "65%",
+    marginRight: 4,
+    marginTop: 2,
+  },
+  date: {
+    fontSize: 16,
+    width: "65%",
+    textAlign: "center",
+    marginBottom: 2,
+  },
+});
 
 export default MovieDetails;
