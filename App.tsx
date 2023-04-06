@@ -1,7 +1,6 @@
 import { AppNavigator } from "./src/config/app.navigator";
 import { ContextProvider } from "./src/config/Context";
 import { SafeAreaView } from "react-native";
-import 'tailwind-react-native-classnames';
 import React, { useEffect } from 'react';
 import * as Font from 'expo-font';
 

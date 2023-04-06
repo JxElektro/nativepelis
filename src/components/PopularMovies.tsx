@@ -4,8 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { API_TOKEN } from "@env";
 
+
 const windowWidth = Dimensions.get("window").width;
 const numColumns = 3;
+
+
 
 interface Movie {
   id: number;
@@ -13,7 +16,24 @@ interface Movie {
   poster_path: string;
 }
 
+interface MovieItemProps {
+  item: Movie;
+  onPress: () => void;
+}
+
 interface PopularMoviesProps {}
+
+const MovieItem: React.FC<MovieItemProps> = React.memo(({ item, onPress }) => {
+  const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.movieContainer}>
+        <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.movieImage} />
+        <Text style={styles.movieTitle}>{item.title}</Text>
+      </View>
+    </ TouchableOpacity>
+  );
+});
 
 const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -23,18 +43,13 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
 
 
   const renderItem = ({ item }: { item: Movie }) => {
-    const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
     return (
-      <TouchableOpacity
+      <MovieItem
+        item={item}
         onPress={() => {
           navigation.navigate("MovieDetails", { movieId: item.id });
         }}
-      >
-        <View style={styles.movieContainer}>
-          <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.movieImage} />
-          <Text style={styles.movieTitle}>{item.title}</Text>
-        </View>
-      </TouchableOpacity>
+      />
     );
   };
 
@@ -85,6 +100,7 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
         numColumns={numColumns}
         onEndReached={() => setPage((prevPage) => prevPage + 1)}
         onEndReachedThreshold={0.5}
+        removeClippedSubviews={true}
       />
     </View>
   );
