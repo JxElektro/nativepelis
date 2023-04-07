@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext} from "react";
 import { TouchableOpacity, Text, FlatList, Image, Dimensions, StyleSheet, View, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { API_TOKEN } from "@env";
+import { Context } from "../config/Context";
 
 
 const windowWidth = Dimensions.get("window").width;
@@ -40,7 +41,7 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState('');
   const navigation = useNavigation<StackNavigationProp<any>>();
-
+  const { lightMode } = useContext(Context);
 
   const renderItem = ({ item }: { item: Movie }) => {
     return (
@@ -92,7 +93,7 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
         />
         
       </View>
-      <Text style={styles.header}>{header}</Text>
+      <Text style={[styles.header , {color: lightMode ? "#fff" : "#0E2859"}]}>{header}</Text>
       <FlatList
         data={movies}
         renderItem={renderItem}
