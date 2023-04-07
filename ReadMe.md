@@ -1,8 +1,8 @@
-Paleta de Colores
+
 Agregar a Dark y Light
 Poppins
 
-recuerda cambiar el toogle de la main
+
 
 lightTheme :{
 primary: #1083D6,

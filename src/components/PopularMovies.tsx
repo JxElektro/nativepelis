@@ -24,28 +24,41 @@ interface MovieItemProps {
 
 interface PopularMoviesProps {}
 
-const MovieItem: React.FC<MovieItemProps> = React.memo(({ item, onPress }) => {
-  const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.movieContainer}>
-        <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.movieImage} />
-        <Text style={styles.movieTitle}>{item.title}</Text>
-      </View>
-    </ TouchableOpacity>
-  );
-});
+
 
 const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState('');
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const { lightMode } = useContext(Context);
+  const { lightMode, theme } = useContext(Context);
+
+/*
+  useEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: theme.primary,
+      },
+      headerTintColor: theme.title,
+    });
+  }, [lightMode]);
+*/
+
+  const MovieItem: React.FC<MovieItemProps> = React.memo(({ item, onPress }) => {
+    const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <View style={styles.movieContainer}>
+          <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.movieImage} />
+          <Text style={[styles.movieTitle,, { color: theme.primary }] }>{item.title}</Text>
+        </View>
+      </ TouchableOpacity>
+    );
+  });
 
   const renderItem = ({ item }: { item: Movie }) => {
     return (
-      <MovieItem
+      <MovieItem 
         item={item}
         onPress={() => {
           navigation.navigate("MovieDetails", { movieId: item.id });
@@ -83,17 +96,16 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const header = searchText ? `Search results for "${searchText}"` : "Popular Movies";
 
   return (
-    <View style={styles.container}>
-      <View style={styles.searchBar}>
-        <TextInput
-          placeholder="Search movies..."
-          style={styles.searchInput}
-          value={searchText}
-          onChangeText={onSearch}
-        />
-        
-      </View>
-      <Text style={[styles.header , {color: lightMode ? "#fff" : "#0E2859"}]}>{header}</Text>
+  <View style={[styles.container, { backgroundColor: theme.container }]}>
+  <View style={[styles.searchBar, { backgroundColor: theme.container }]}>
+    <TextInput
+      placeholder="Search movies..."
+      style={[styles.searchInput, { backgroundColor: theme.primary }]}
+      value={searchText}
+      onChangeText={onSearch}
+    />
+  </View>
+  <Text style={[styles.header, { color: theme.primary }]}>{header}</Text>
       <FlatList
         data={movies}
         renderItem={renderItem}
@@ -115,23 +127,18 @@ const SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_TOKE
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#AFCEE3",
   },
   searchBar: {
-    backgroundColor: "#215EBB",
     padding: 8,
   },
   searchInput: {
-    backgroundColor: "#AFCEE3",
     borderRadius: 8,
     padding: 8,
   },
   header: {
     fontSize: 24,
-    //fontFamily : "poppins-bold",
     margin: 14,
-    textAlign: "center", 
-    color: "#0E2859",
+    textAlign: "center",
     fontWeight: "bold",
   },
   movieContainer: {
@@ -146,11 +153,10 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     fontSize: 16,
-    fontFamily : "poppins-regular",
+    fontFamily: "poppins-regular",
     marginTop: 8,
     textAlign: "center",
-    color: "#0E2859",
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
 });
 
