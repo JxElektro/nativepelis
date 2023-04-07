@@ -5,11 +5,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { API_TOKEN } from "@env";
 import { Context } from "../config/Context";
 
-
 const windowWidth = Dimensions.get("window").width;
 const numColumns = 3;
-
-
 
 interface Movie {
   id: number;
@@ -24,8 +21,6 @@ interface MovieItemProps {
 
 interface PopularMoviesProps {}
 
-
-
 const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
@@ -33,16 +28,6 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const { lightMode, theme } = useContext(Context);
 
-/*
-  useEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: theme.primary,
-      },
-      headerTintColor: theme.title,
-    });
-  }, [lightMode]);
-*/
 
   const MovieItem: React.FC<MovieItemProps> = React.memo(({ item, onPress }) => {
     const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;

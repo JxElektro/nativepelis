@@ -8,6 +8,8 @@ const lightTheme = {
   border: "#EFF3F5",
   container: "#FFF",
   body: "#FBFBFE",
+  barStyle: "dark-content",
+  backgroundColor: "#FFF",
 };
 
 const darkTheme = {
@@ -18,6 +20,8 @@ const darkTheme = {
   border: "#2A3B47",
   container: "#212E36",
   body: "#192229",
+  barStyle: "light-content",
+  backgroundColor: "#212E36",
 };
 
 type ContextType = {
