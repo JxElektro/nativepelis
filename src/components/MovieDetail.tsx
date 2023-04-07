@@ -1,11 +1,10 @@
-import React, { useEffect, useState , useContext } from "react";
-import { View, Text, Image, StyleSheet, ScrollView , TouchableOpacity} from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { API_TOKEN } from "@env";
 import { Context } from "../config/Context";
 import ToggleButton from "./ToggleButton";
 import * as Speech from 'expo-speech';
-import { useNavigation , useFocusEffect } from '@react-navigation/native';
-
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 interface MovieDetailsProps {
   movieId: number;
@@ -31,6 +30,7 @@ const MovieDetails = (props: MovieDetailsProps) => {
   const { lightMode } = useContext(Context);
   const [isPlaying, setIsPlaying] = useState(false);
   const navigation = useNavigation();
+  const { theme } = useContext(Context);
 
   const speak = () => {
     if (isPlaying) {
@@ -55,17 +55,13 @@ const MovieDetails = (props: MovieDetailsProps) => {
           Speech.stop();
         }
       };
-  
-      // Añade el listener
+
       const unsubscribe = navigation.addListener('beforeRemove', onBeforeRemove);
   
-      // Devuelve la función de limpieza
       return () => {
-        // Detén la reproducción de voz al desmontar el componente
         if (isPlaying) {
           Speech.stop();
         }
-        // Elimina el listener
         unsubscribe();
       };
     }, [isPlaying, navigation])
@@ -116,42 +112,41 @@ const MovieDetails = (props: MovieDetailsProps) => {
     .map((genre) => genre.name)
     .join(", ");
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.subContainer}>
-        <View style={styles.leftContainer}>
-          <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.image} />
-          <Text style={styles.text}>{genres}</Text>
+    return (
+      <View style={[styles.container, { backgroundColor: theme.container }]}>
+        <View style={styles.subContainer}>
+          <View style={styles.leftContainer}>
+            <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.image} />
+            <Text style={[styles.text, { color: theme.title }]}>{genres}</Text>
+          </View>
+          <ScrollView style={styles.scrollView}>
+            <Text
+              style={{
+                fontSize: textSize,
+                paddingRight: 10,
+                paddingLeft: 10,
+                paddingTop: 10,
+                paddingBottom: 10,
+                color: theme.title,
+              }}
+            >
+              {movieDetails.overview}
+            </Text>
+          </ScrollView>
         </View>
-        <ScrollView style={styles.scrollView}>
-          <Text
-            style={{
-              fontSize: textSize,
-              paddingRight: 10,
-              paddingLeft: 10,
-              paddingTop: 10,
-              paddingBottom: 10,
-            }}
-          >
-            {movieDetails.overview}
-          </Text>
-        </ScrollView>
-      </View>
-    <View style={{ flexDirection: "row",justifyContent: "space-between",alignItems: "center", marginBottom: 10, marginRight: 10,
-  }}>
-      <Text style={styles.date}>Estreno: {movieDetails.release_date}</Text>
-      
-  <TouchableOpacity onPress={speak}>
-        <Text style={styles.buttonBar}>{isPlaying ? "🔇" : "🔊"}</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10, marginRight: 10 }}>
+          <Text style={[styles.date, { color: theme.title }]}>Estreno: {movieDetails.release_date}</Text>
+          <TouchableOpacity onPress={speak}>
+        <Text style={[styles.buttonBar, {backgroundColor : theme.primary} ]}>{isPlaying ? "🔇" : "🔊"}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={increaseFontSize}>
-        <Text style={styles.buttonBar}>➕</Text>
+        <Text style={[styles.buttonBar, {backgroundColor : theme.primary} ]}>➕</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={decreaseFontSize}>
-        <Text style={styles.buttonBar}>➖</Text>
+        <Text style={[styles.buttonBar, {backgroundColor : theme.primary} ]}>➖</Text>
       </TouchableOpacity>  
-      <ToggleButton style={styles.buttonBar} />
+      <ToggleButton style={[styles.buttonBar, {backgroundColor : theme.primary} ]} />
       </ View>
     </View>
   );
@@ -201,7 +196,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
    marginRight: 10,
     borderRadius: 50,
-    backgroundColor: "red",
     padding: 10,
   },
 });

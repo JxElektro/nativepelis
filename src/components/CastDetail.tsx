@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image , StyleSheet} from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Text, FlatList, Image, StyleSheet , SafeAreaView} from 'react-native';
 import { API_TOKEN } from '@env';
-
+import { Context } from "../config/Context";
 
 interface CastDetailProps {
   movieId: number;
@@ -17,6 +17,7 @@ interface CastMember {
 const CastDetail = (props: CastDetailProps) => {
   const { movieId } = props;
   const [cast, setCast] = useState<CastMember[]>([]);
+  const { theme } = useContext(Context);
 
   const API_URL = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_TOKEN}&language=en-US`;
 
@@ -37,11 +38,13 @@ const CastDetail = (props: CastDetailProps) => {
       : 'https://via.placeholder.com/100x150';
 
     return (
-      <View style={styles.container} >
+<SafeAreaView style={{ flex:1 , backgroundColor:theme.container }}>
+      <View style={[styles.container]}>
         <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.image} />
-        <Text style={styles.character}>{item.character}</Text>
-        <Text style={styles.name}>{item.name}</Text>
+        <Text style={[styles.character, { color: theme.primary }]}>{item.character}</Text>
+        <Text style={[styles.name, { color: theme.primary }]}>{item.name}</Text>
       </View>
+</SafeAreaView>
     );
   };
 
@@ -59,6 +62,8 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 4,
     alignItems: 'center',
+    marginTop: 2,
+    height: 600
   },
   image: {
     width: 100,
@@ -78,6 +83,5 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
 });
-
 
 export default CastDetail;
