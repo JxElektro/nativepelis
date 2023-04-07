@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet, ScrollView , TouchableOpacity} from "rea
 import { API_TOKEN } from "@env";
 import { Context } from "../config/Context";
 import ToggleButton from "./ToggleButton";
+import * as Speech from 'expo-speech';
+import { useNavigation , useFocusEffect } from '@react-navigation/native';
 
 
 interface MovieDetailsProps {
@@ -27,6 +29,47 @@ const MovieDetails = (props: MovieDetailsProps) => {
   const [movieDetails, setMovieDetails] = useState<MovieDetailsData | null>(null);
   const [textSize, setTextSize] = useState(16);
   const { lightMode } = useContext(Context);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const navigation = useNavigation();
+
+  const speak = () => {
+    if (isPlaying) {
+      Speech.stop();
+      setIsPlaying(false);
+    } else {
+      Speech.speak(movieDetails?.overview || "", {
+        language: 'es',
+        rate: 0.85,
+        pitch: 1,
+        onStart: () => setIsPlaying(true),
+        onDone: () => setIsPlaying(false),
+        onStopped: () => setIsPlaying(false),
+      });
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBeforeRemove = () => {
+        if (isPlaying) {
+          Speech.stop();
+        }
+      };
+  
+      // Añade el listener
+      const unsubscribe = navigation.addListener('beforeRemove', onBeforeRemove);
+  
+      // Devuelve la función de limpieza
+      return () => {
+        // Detén la reproducción de voz al desmontar el componente
+        if (isPlaying) {
+          Speech.stop();
+        }
+        // Elimina el listener
+        unsubscribe();
+      };
+    }, [isPlaying, navigation])
+  );
 
   const increaseFontSize = () => {
     if (textSize < 50) {
@@ -40,7 +83,7 @@ const MovieDetails = (props: MovieDetailsProps) => {
     }
   };
 
-  const API_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_TOKEN}`;
+  const API_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_TOKEN}&language=es-ES`;
 
   useEffect(() => {
     fetch(API_URL)
@@ -94,16 +137,21 @@ const MovieDetails = (props: MovieDetailsProps) => {
           </Text>
         </ScrollView>
       </View>
-    <View style={{ flexDirection: "row",justifyContent: "space-between",alignItems: "center",
+    <View style={{ flexDirection: "row",justifyContent: "space-between",alignItems: "center", marginBottom: 10, marginRight: 10,
   }}>
-      <Text style={styles.date}>Release Date: {movieDetails.release_date}</Text>
+      <Text style={styles.date}>Estreno: {movieDetails.release_date}</Text>
+      
+  <TouchableOpacity onPress={speak}>
+        <Text style={styles.buttonBar}>{isPlaying ? "🔇" : "🔊"}</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity onPress={increaseFontSize}>
-        <Text style={{ fontSize: 20 }}>➕</Text>
+        <Text style={styles.buttonBar}>➕</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={decreaseFontSize}>
-        <Text style={{ fontSize: 20}}>➖</Text>
+        <Text style={styles.buttonBar}>➖</Text>
       </TouchableOpacity>  
-      <ToggleButton />
+      <ToggleButton style={styles.buttonBar} />
       </ View>
     </View>
   );
@@ -113,7 +161,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: 5,
   },
   subContainer: {
     flexDirection: "row",
@@ -126,10 +173,11 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     paddingLeft: 1,
     width: "30%",
+    paddingTop: 20
   },
   image: {
     width: 100,
-    height: 150,
+    height: 200,
     borderRadius: 5,
   },
   text: {
@@ -139,15 +187,22 @@ const styles = StyleSheet.create({
   },
   date: {
     fontSize: 16,
-    width: "65%",
+    width: "50%",
     textAlign: "center",
-    marginBottom: 2,
+  
   },
   scrollView: {
     width: "65%",
     marginRight: 4,
     marginTop: 2,
     height: 300,
+  },
+  buttonBar: {
+    fontSize: 15,
+   marginRight: 10,
+    borderRadius: 50,
+    backgroundColor: "red",
+    padding: 10,
   },
 });
 

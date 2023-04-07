@@ -14,24 +14,12 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ style }) => {
   };
 
   return (
-    <View>
-      <TouchableOpacity
-        style={[styles.container, style]}
-        onPress={toggleTheme}
-      >
+    <View style={style}>
+      <TouchableOpacity onPress={toggleTheme}>
         <Text>{lightMode ? "🌙" : "☀️"}</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 50,
-    backgroundColor: "#fff", 
-  }
-});
-
 export default ToggleButton;
-
-// Path: src\components\ToggleButton.tsx
