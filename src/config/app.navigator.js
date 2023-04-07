@@ -27,6 +27,5 @@ export const AppNavigator = () => {
   );
 };
 
-// Path: src\page\MovieList.js
-
+// Path: src\config\app.navigator.tsx
 

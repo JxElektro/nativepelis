@@ -1,45 +1,36 @@
-
 import React, { useContext } from "react";
-import { View, Text, TouchableOpacity , StyleSheet} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { Context } from "../config/Context";
 
+interface ToggleButtonProps {
+  style?: StyleProp<ViewStyle>;
+}
 
-const ToggleButton = (props : any ) => {
-  const { themeMode, setThemeMode } = useContext(Context);
+const ToggleButton: React.FC<ToggleButtonProps> = ({ style }) => {
+  const { lightMode, setLightMode } = useContext(Context);
 
   const toggleTheme = () => {
-    if (themeMode === "dark") {
-      setThemeMode("light");
-    } else {
-      setThemeMode("dark");
-    }
+    setLightMode(!lightMode);
   };
 
-
   return (
-    <View >
-      <TouchableOpacity style={styles.container} onPress={toggleTheme}>
-        <Text style={styles.text}>Cambiar Color</Text>
+    <View>
+      <TouchableOpacity
+        style={[styles.container, style]}
+        onPress={toggleTheme}
+      >
+        <Text>{lightMode ? "🌙" : "☀️"}</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-// styled like a button
-
 const styles = StyleSheet.create({
-  container : {
-    backgroundColor : "#000",
-    padding : 10,
-    borderRadius : 5,
-    margin : 10,
-    width : 150,
-    alignItems : "center",
-  },
-  text: {
-    color: "#fff",
-  },
-})
+  container: {
+    borderRadius: 50,
+    backgroundColor: "#fff", 
+  }
+});
 
 export default ToggleButton;
 

@@ -1,8 +1,9 @@
 import { AppNavigator } from "./src/config/app.navigator";
-import { ContextProvider } from "./src/config/Context";
 import { SafeAreaView } from "react-native";
 import React, { useEffect } from 'react';
 import * as Font from 'expo-font';
+// context
+import { ContextProvider } from './src/config/Context';
 
 export default function App() {
 
@@ -18,11 +19,11 @@ export default function App() {
   }, []);
 
   return (
-    <ContextProvider>
+      <ContextProvider>
       <SafeAreaView style={{ flex: 1 }}>
         <AppNavigator />
       </SafeAreaView>
-    </ContextProvider>
+      </ContextProvider>
   );
 }
 
