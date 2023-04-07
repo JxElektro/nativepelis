@@ -6,3 +6,4 @@ debo crear 2 estilos para que cambien los colores ( ya tengo una prueba el titul
 y debo agregar el lector automatico
 
 y las fuentes poppins
+

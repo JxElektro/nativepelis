@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import React, { useEffect, useState , useContext } from "react";
+import { View, Text, Image, StyleSheet, ScrollView , TouchableOpacity} from "react-native";
 import { API_TOKEN } from "@env";
+import { Context } from "../config/Context";
+import ToggleButton from "./ToggleButton";
+
 
 interface MovieDetailsProps {
   movieId: number;
@@ -22,6 +25,20 @@ interface MovieDetailsData {
 const MovieDetails = (props: MovieDetailsProps) => {
   const { movieId } = props;
   const [movieDetails, setMovieDetails] = useState<MovieDetailsData | null>(null);
+  const [textSize, setTextSize] = useState(16);
+  const { lightMode } = useContext(Context);
+
+  const increaseFontSize = () => {
+    if (textSize < 50) {
+      setTextSize(textSize + 2);
+    }
+  };
+  
+  const decreaseFontSize = () => {
+    if (textSize > 10) {
+      setTextSize(textSize - 2);
+    }
+  };
 
   const API_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_TOKEN}`;
 
@@ -63,10 +80,31 @@ const MovieDetails = (props: MovieDetailsProps) => {
           <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.image} />
           <Text style={styles.text}>{genres}</Text>
         </View>
-
-        <Text style={styles.details}>{movieDetails.overview}</Text>
+        <ScrollView style={styles.scrollView}>
+          <Text
+            style={{
+              fontSize: textSize,
+              paddingRight: 10,
+              paddingLeft: 10,
+              paddingTop: 10,
+              paddingBottom: 10,
+            }}
+          >
+            {movieDetails.overview}
+          </Text>
+        </ScrollView>
       </View>
+    <View style={{ flexDirection: "row",justifyContent: "space-between",alignItems: "center",
+  }}>
       <Text style={styles.date}>Release Date: {movieDetails.release_date}</Text>
+      <TouchableOpacity onPress={increaseFontSize}>
+        <Text style={{ fontSize: 20 }}>➕</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={decreaseFontSize}>
+        <Text style={{ fontSize: 20}}>➖</Text>
+      </TouchableOpacity>  
+      <ToggleButton />
+      </ View>
     </View>
   );
 };
@@ -99,17 +137,17 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     paddingTop: 5,
   },
-  details: {
-    fontSize: 16,
-    width: "65%",
-    marginRight: 4,
-    marginTop: 2,
-  },
   date: {
     fontSize: 16,
     width: "65%",
     textAlign: "center",
     marginBottom: 2,
+  },
+  scrollView: {
+    width: "65%",
+    marginRight: 4,
+    marginTop: 2,
+    height: 300,
   },
 });
 
