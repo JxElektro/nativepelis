@@ -1,9 +1,10 @@
-import React, { useEffect, useState , useContext} from "react";
-import { TouchableOpacity, Text, FlatList, Image, Dimensions, StyleSheet, View, TextInput } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { TouchableOpacity, Text, FlatList, Image, Dimensions, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { API_TOKEN } from "@env";
 import { Context } from "../config/Context";
+import SearchBar from "./SearchBar";
 
 const windowWidth = Dimensions.get("window").width;
 const numColumns = 3;
@@ -24,10 +25,9 @@ interface PopularMoviesProps {}
 const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const navigation = useNavigation<StackNavigationProp<any>>();
   const { lightMode, theme } = useContext(Context);
-
 
   const MovieItem: React.FC<MovieItemProps> = React.memo(({ item, onPress }) => {
     const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
@@ -35,15 +35,15 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
       <TouchableOpacity onPress={onPress}>
         <View style={styles.movieContainer}>
           <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.movieImage} />
-          <Text style={[styles.movieTitle,, { color: theme.primary }] }>{item.title}</Text>
+          <Text style={[styles.movieTitle, , { color: theme.primary }]}>{item.title}</Text>
         </View>
-      </ TouchableOpacity>
+      </TouchableOpacity>
     );
   });
 
   const renderItem = ({ item }: { item: Movie }) => {
     return (
-      <MovieItem 
+      <MovieItem
         item={item}
         onPress={() => {
           navigation.navigate("MovieDetails", { movieId: item.id });
@@ -51,7 +51,6 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
       />
     );
   };
-
 
   const fetchMovies = (pageNumber: number, query?: string) => {
     let url = `${API_URL}&page=${pageNumber}`;
@@ -81,16 +80,9 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const header = searchText ? `Search results for "${searchText}"` : "Popular Movies";
 
   return (
-  <View style={[styles.container, { backgroundColor: theme.container }]}>
-  <View style={[styles.searchBar, { backgroundColor: theme.container }]}>
-    <TextInput
-      placeholder="Search movies..."
-      style={[styles.searchInput, { backgroundColor: theme.primary }]}
-      value={searchText}
-      onChangeText={onSearch}
-    />
-  </View>
-  <Text style={[styles.header, { color: theme.primary }]}>{header}</Text>
+    <View style={[styles.container, { backgroundColor: theme.container }]}>
+      <SearchBar searchText={searchText} onSearch={onSearch} />
+      <Text style={[styles.header, { color: theme.primary }]}>{header}</Text>
       <FlatList
         data={movies}
         renderItem={renderItem}
@@ -103,8 +95,6 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
     </View>
   );
 };
-
-
 
 const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_TOKEN}`;
 const SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_TOKEN}`;

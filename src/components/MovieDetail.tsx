@@ -27,7 +27,6 @@ const MovieDetails = (props: MovieDetailsProps) => {
   const { movieId } = props;
   const [movieDetails, setMovieDetails] = useState<MovieDetailsData | null>(null);
   const [textSize, setTextSize] = useState(16);
-  const { lightMode } = useContext(Context);
   const [isPlaying, setIsPlaying] = useState(false);
   const navigation = useNavigation();
   const { theme } = useContext(Context);

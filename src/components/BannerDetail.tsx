@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { API_TOKEN } from "@env";
 
+import { API_TOKEN } from "@env";
 
 interface BannerDetailProps {
   movieId: number;
@@ -15,7 +15,6 @@ interface MovieDetails {
 const BannerDetail = (props: BannerDetailProps) => {
   const { movieId } = props;
   const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
-
   const API_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_TOKEN}`;
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const BannerDetail = (props: BannerDetailProps) => {
         console.error("Error fetching movie details:", error);
       });
   }, [movieId]);
-
   if (!movieDetails) {
     return (
       <View style={styles.container}>
