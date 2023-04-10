@@ -1,46 +1,20 @@
-import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
-import { API_TOKEN } from "@env";
-
 interface BannerDetailProps {
-  movieId: number;
-}
-
-interface MovieDetails {
   title: string;
   backdrop_path: string;
 }
 
+
+/* Este Componente Banner trae la ruta de imagen de fondo de la pelicula y el titulo de la pelicula desde las props */
 const BannerDetail = (props: BannerDetailProps) => {
-  const { movieId } = props;
-  const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
-  const API_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_TOKEN}`;
-
-  useEffect(() => {
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((data) => {
-        setMovieDetails({ title: data.title, backdrop_path: data.backdrop_path });
-      })
-      .catch((error) => {
-        console.error("Error fetching movie details:", error);
-      });
-  }, [movieId]);
-  if (!movieDetails) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header_text}>Loading...</Text>
-      </View>
-    );
-  }
-
-  const imageURL = `https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`;
+  const { title, backdrop_path } = props;
+  const imageURL = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
 
   return (
     <View style={styles.container}>
       <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.banner} />
-      <Text style={styles.header_text}>{movieDetails.title}</Text>
+      <Text style={styles.header_text}>{title}</Text>
     </View>
   );
 };

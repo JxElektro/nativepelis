@@ -55,3 +55,5 @@ export const ContextProvider = (props: any) => {
     </Context.Provider>
   );
 };
+
+// Path: src\config\Context.tsx

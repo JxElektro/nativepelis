@@ -6,6 +6,7 @@ interface ToggleButtonProps {
   style?: StyleProp<ViewStyle>;
 }
 
+/* Este componente es el botón que cambia el tema de la app tomando la info del context*/
 const ToggleButton: React.FC<ToggleButtonProps> = ({ style }) => {
   const { lightMode, setLightMode } = useContext(Context);
 
@@ -23,3 +24,4 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ style }) => {
 };
 
 export default ToggleButton;
+

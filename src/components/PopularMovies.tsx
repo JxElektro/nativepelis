@@ -22,6 +22,8 @@ interface MovieItemProps {
 
 interface PopularMoviesProps {}
 
+/* este componente es el que muestra las peliculas populares y renderiza la barra de busqueda*/
+
 const PopularMovies: React.FC<PopularMoviesProps> = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
@@ -136,3 +138,4 @@ const styles = StyleSheet.create({
 });
 
 export default PopularMovies;
+

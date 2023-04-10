@@ -1,11 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, FlatList, Image, StyleSheet , SafeAreaView} from 'react-native';
-import { API_TOKEN } from '@env';
+import React, { useContext } from 'react';
+import { View, Text, FlatList, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { Context } from "../config/Context";
-
-interface CastDetailProps {
-  movieId: number;
-}
 
 interface CastMember {
   id: number;
@@ -14,23 +9,14 @@ interface CastMember {
   character: string;
 }
 
+interface CastDetailProps {
+  cast: CastMember[];
+}
+
+/* Este componente muestra la lista de actores de una película */
 const CastDetail = (props: CastDetailProps) => {
-  const { movieId } = props;
-  const [cast, setCast] = useState<CastMember[]>([]);
+  const { cast } = props;
   const { theme } = useContext(Context);
-
-  const API_URL = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_TOKEN}&language=en-US`;
-
-  useEffect(() => {
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((data) => {
-        setCast(data.cast);
-      })
-      .catch((error) => {
-        console.error('Error fetching cast details:', error);
-      });
-  }, [movieId]);
 
   const renderItem = ({ item }: { item: CastMember }) => {
     const imageURL = item.profile_path
@@ -38,13 +24,13 @@ const CastDetail = (props: CastDetailProps) => {
       : 'https://via.placeholder.com/100x150';
 
     return (
-<SafeAreaView style={{ flex:1 , backgroundColor:theme.container }}>
-      <View style={[styles.container]}>
-        <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.image} />
-        <Text style={[styles.character, { color: theme.primary }]}>{item.character}</Text>
-        <Text style={[styles.name, { color: theme.primary }]}>{item.name}</Text>
-      </View>
-</SafeAreaView>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.container }}>
+        <View style={[styles.container]}>
+          <Image source={{ uri: imageURL }} resizeMode="cover" style={styles.image} />
+          <Text style={[styles.character, { color: theme.primary }]}>{item.character}</Text>
+          <Text style={[styles.name, { color: theme.primary }]}>{item.name}</Text>
+        </View>
+      </SafeAreaView>
     );
   };
 
@@ -85,3 +71,4 @@ const styles = StyleSheet.create({
 });
 
 export default CastDetail;
+

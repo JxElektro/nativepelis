@@ -7,6 +7,7 @@ interface SearchBarProps {
   onSearch: (text: string) => void;
 }
 
+/* Este componente es la barra de búsqueda */
 const SearchBar: React.FC<SearchBarProps> = ({ searchText, onSearch }) => {
   const { theme } = useContext(Context);
 
@@ -33,3 +34,4 @@ const styles = StyleSheet.create({
 });
 
 export default SearchBar;
+
