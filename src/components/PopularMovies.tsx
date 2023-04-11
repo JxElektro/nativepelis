@@ -91,7 +91,7 @@ const PopularMovies: React.FC<PopularMoviesProps> = () => {
         keyExtractor={(item) => item.id.toString()}
         numColumns={numColumns}
         onEndReached={() => setPage((prevPage) => prevPage + 1)}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={2}
         removeClippedSubviews={true}
       />
     </View>

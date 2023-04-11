@@ -6,13 +6,14 @@ import { API_TOKEN } from "@env";
 import ToggleButton from "./ToggleButton";
 import { Context } from "../config/Context";
 
+
 const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_TOKEN}`;
 const windowWidth = Dimensions.get("window").width;
 
 interface Movie {
   id: number;
   title: string;
-  poster_path: string;
+  backdrop_path: string;
 }
 
 interface MovieItemProps {
@@ -24,7 +25,7 @@ const PremieredMovies = (props: any) => {
   const { theme } = useContext(Context);
 
   const MovieItem: React.FC<MovieItemProps> = React.memo(({ item }) => {
-    const imageURL = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+    const imageURL = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     return (
